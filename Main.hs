@@ -2,11 +2,12 @@
 {-# LANGUAGE OverloadedStrings    #-}
 module Main where
 
-import           Data.Monoid        ((<>))
-import           Data.Text
-import           Lucid              (Html, renderText, toHtml)
+import           Control.Monad.IO.Class (liftIO)
+import           Data.Monoid            ((<>))
+import           Data.Text              (Text, unpack)
+import           Lucid                  (Html, renderText, toHtml)
 import           Lucid.Html5
-import           System.Environment (lookupEnv)
+import           System.Environment     (lookupEnv)
 import           Web.Scotty
 
 main :: IO ()
@@ -16,6 +17,7 @@ main = do
     get "/:a/:b" $ do
       a <- param "a"
       b <- param "b"
+      liftIO . putStrLn $ unpack a <> " n'a rien à voir avec " <> unpack b
       html $ renderText (layout a b)
 
 style :: Text
