@@ -18,6 +18,7 @@ main = do
       b <- param "b"
       html $ renderText (layout a b)
 
+style :: Text
 style =
   "margin-top: 200px;\n\
   \font-weight: normal;\n\
