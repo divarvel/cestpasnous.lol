@@ -2,7 +2,7 @@
 
 let compile = run({
   sh: 'stack build',
-  watch: 'app/**'
+  watch: '*.hs'
 })
 
 let server = runServer({
