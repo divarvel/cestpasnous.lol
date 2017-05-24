@@ -32,4 +32,4 @@ layout a b = doctypehtml_ $ do
   h1_ [style_ style] $ do
     b_ $ toHtml a <> br_ []
     " n'a " <> i_ "rien" <> " à voir" <> br_ [] <> "avec "
-    b_ $ toHtml b <> "."
+    (b_ $ toHtml b) <> "."
