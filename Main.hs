@@ -28,7 +28,18 @@ main = do
       a <- param "a"
       b <- param "b"
       liftIO . putStrLn $ unpack a <> " n'a rien à voir avec " <> unpack b
-      html $ renderText (layout a b)
+      html $ renderText (render a b)
+
+isReserved :: Text -> Bool
+isReserved = (`elem` ["Cyril Hanouna", "Hanouna", "TPMP", "Touche Pas à Mon Poste"])
+
+render :: Text -> Text -> Html ()
+render a b =
+  if isReserved a then
+    reserved a
+  else if isReserved b then
+    reserved b
+  else layout a b
 
 style :: Text
 style =
@@ -46,6 +57,13 @@ layout a b = doctypehtml_ $ do
     b_ $ toHtml a <> br_ []
     " n'a " <> i_ "rien" <> " à voir" <> br_ [] <> "avec "
     (b_ $ toHtml b) <> "."
+
+reserved :: Text -> Html ()
+reserved kw = doctypehtml_ $ do
+  h1_ [style_ style] $ do
+    "Se dédouaner de "
+    b_ $ toHtml kw <> br_ []
+    "est réservé aux utilisateurs premium. Merci de contacter le support"
 
 inputStyle :: Text
 inputStyle =
