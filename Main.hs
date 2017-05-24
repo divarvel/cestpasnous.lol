@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-import           Data.Monoid        ((<>))
-import           Lucid              (renderText)
+import           Lucid              (Html, renderText)
 import           Lucid.Html5
 import           System.Environment (lookupEnv)
 import           Web.Scotty
@@ -14,5 +13,6 @@ main = do
       --code <- param "code"
       html $ renderText (layout)
 
+layout :: Html ()
 layout = doctypehtml_ $ do
   h1_ $ "C'est pas nous, lol"
