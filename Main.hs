@@ -1,19 +1,29 @@
 {-# LANGUAGE ExtendedDefaultRules #-}
 {-# LANGUAGE OverloadedStrings    #-}
+
 module Main where
 
-import           Control.Monad.IO.Class (liftIO)
-import           Data.Monoid            ((<>))
-import           Data.Text              (Text, unpack)
-import           Lucid                  (Html, renderText, toHtml)
+import           Control.Monad.IO.Class  (liftIO)
+import           Data.ByteString.Builder (toLazyByteString)
+import           Data.Monoid             ((<>))
+import           Data.Text               (Text, unpack)
+import           Data.Text.Lazy.Encoding (decodeUtf8)
+import           Lucid                   (Html, renderText, toHtml)
 import           Lucid.Html5
-import           System.Environment     (lookupEnv)
+import           Network.HTTP.Types.URI  (encodePathSegments)
+import           System.Environment      (lookupEnv)
 import           Web.Scotty
 
 main :: IO ()
 main = do
   port <- lookupEnv "PORT"
   scotty (maybe 8080 read port) $ do
+    get "/" $ do
+      html $ renderText form
+    post "/" $ do
+      a <- param "a"
+      b <- param "b"
+      redirect . decodeUtf8 . toLazyByteString $ encodePathSegments [a, b]
     get "/:a/:b" $ do
       a <- param "a"
       b <- param "b"
@@ -36,3 +46,16 @@ layout a b = doctypehtml_ $ do
     b_ $ toHtml a <> br_ []
     " n'a " <> i_ "rien" <> " à voir" <> br_ [] <> "avec "
     (b_ $ toHtml b) <> "."
+
+inputStyle :: Text
+inputStyle =
+  "font-size: 5em;\n\
+  \width: 90%;\n\
+  \text-align: center;"
+
+form :: Html ()
+form = doctypehtml_ $ do
+  form_ [action_ "/", method_ "post"] $ do
+    input_ [type_ "text", name_ "a", style_ inputStyle] <> br_ []
+    input_ [type_ "text", name_ "b", style_ inputStyle] <> br_ []
+    button_ [type_ "submit", style_ inputStyle] "Me dédouaner"
