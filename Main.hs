@@ -6,7 +6,7 @@ module Main where
 import           Control.Monad.IO.Class  (liftIO)
 import           Data.ByteString.Builder (toLazyByteString)
 import           Data.Monoid             ((<>))
-import           Data.Text               (Text, unpack)
+import           Data.Text               (Text, toLower, unpack)
 import           Data.Text.Lazy.Encoding (decodeUtf8)
 import           Lucid                   (Html, renderText, toHtml)
 import           Lucid.Html5
@@ -31,7 +31,7 @@ main = do
       html $ renderText (render a b)
 
 isReserved :: Text -> Bool
-isReserved = (`elem` ["Cyril Hanouna", "Hanouna", "TPMP", "Touche Pas à Mon Poste"])
+isReserved = (`elem` ["cyril hanouna", "hanouna", "tpmp", "touche pas à mon poste"]) . toLower
 
 render :: Text -> Text -> Html ()
 render a b =
