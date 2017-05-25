@@ -31,7 +31,7 @@ main = do
       html $ renderText (render a b)
 
 isReserved :: Text -> Bool
-isReserved = (`elem` ["cyril hanouna", "hanouna", "tpmp", "touche pas à mon poste"]) . toLower
+isReserved = (`elem` ["cyril hanouna", "hanouna", "tpmp", "touche pas à mon poste", "manuel valls", "valls"]) . toLower
 
 render :: Text -> Text -> Html ()
 render a b =
