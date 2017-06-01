@@ -20,6 +20,8 @@ main = do
   scotty (maybe 8080 read port) $ do
     get "/" $ do
       html $ renderText form
+    get "/style.css" $ do
+      file "style.css"
     post "/" $ do
       a <- param "a"
       b <- param "b"
@@ -39,28 +41,27 @@ render a b =
     reserved a
   else if isReserved b then
     reserved b
-  else layout a b
+  else notme a b
 
-style :: Text
-style =
-  "margin-top: 200px;\n\
-  \font-weight: normal;\n\
-  \line-height: 1.4em;\n\
-  \font-size: 100px;\n\
-  \font-family: sans-serif;\n\
-  \text-align: center;"
+layout :: Html () -> Html ()
+layout content = doctypehtml_ $ do
+  head_ $ do
+    link_ [type_ "text/css", rel_ "stylesheet", href_ "/style.css"]
+  body_ $ do
+    content
+    (img_ [src_ "https://www.clever-cloud.com/images/brand-assets/svg/partner-rect-proudly-red.svg"])
 
 
-layout :: Text -> Text -> Html ()
-layout a b = doctypehtml_ $ do
-  h1_ [style_ style] $ do
+notme :: Text -> Text -> Html ()
+notme a b = layout $ do
+  h1_ $ do
     b_ $ toHtml a <> br_ []
     " n'a " <> i_ "rien" <> " à voir" <> br_ [] <> "avec "
     (b_ $ toHtml b) <> "."
 
 reserved :: Text -> Html ()
-reserved kw = doctypehtml_ $ do
-  h1_ [style_ style] $ do
+reserved kw = layout $ do
+  h1_ $ do
     "Se dédouaner de "
     b_ $ toHtml kw <> br_ []
     "est réservé aux utilisateurs premium. Merci de contacter le support"
@@ -72,7 +73,7 @@ inputStyle =
   \text-align: center;"
 
 form :: Html ()
-form = doctypehtml_ $ do
+form = layout $ do
   form_ [action_ "/", method_ "post"] $ do
     input_ [type_ "text", name_ "a", style_ inputStyle] <> br_ []
     input_ [type_ "text", name_ "b", style_ inputStyle] <> br_ []
