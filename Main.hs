@@ -49,19 +49,19 @@ layout content = doctypehtml_ $ do
     link_ [type_ "text/css", rel_ "stylesheet", href_ "/style.css"]
   body_ $ do
     content
-    (img_ [src_ "https://www.clever-cloud.com/images/brand-assets/svg/partner-rect-proudly-red.svg"])
+    (img_ [src_ "https://www.clever-cloud.com/images/brand-assets/svg/partner-rect-proudly-blue.svg"])
 
 
 notme :: Text -> Text -> Html ()
 notme a b = layout $ do
-  h1_ $ do
+  h1_ [class_ "main-stuff"] $ do
     b_ $ toHtml a <> br_ []
     " n'a " <> i_ "rien" <> " à voir" <> br_ [] <> "avec "
     (b_ $ toHtml b) <> "."
 
 reserved :: Text -> Html ()
 reserved kw = layout $ do
-  h1_ $ do
+  h1_ [class_ "main-stuff"] $ do
     "Se dédouaner de "
     b_ $ toHtml kw <> br_ []
     "est réservé aux utilisateurs premium. Merci de contacter le support"
@@ -74,7 +74,7 @@ inputStyle =
 
 form :: Html ()
 form = layout $ do
-  form_ [action_ "/", method_ "post"] $ do
+  form_ [action_ "/", method_ "post", class_ "main-stuff"] $ do
     input_ [type_ "text", name_ "a", style_ inputStyle] <> br_ []
     input_ [type_ "text", name_ "b", style_ inputStyle] <> br_ []
     button_ [type_ "submit", style_ inputStyle] "Me dédouaner"

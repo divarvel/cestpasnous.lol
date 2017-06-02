@@ -9,15 +9,18 @@ body {
   align-content: flex-end;
 }
 
-h1 {
+.main-stuff {
   margin-top: 200px;
   font-weight: normal;
   line-height: 1.4em;
-  font-size: 100px;
   font-family: sans-serif;
   text-align: center;
   width: 100%;
   flex: 1;
+}
+
+h1.main-stuff {
+  font-size: 100px;
 }
 
 img {
