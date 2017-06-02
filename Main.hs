@@ -49,7 +49,7 @@ layout content = doctypehtml_ $ do
     link_ [type_ "text/css", rel_ "stylesheet", href_ "/style.css"]
   body_ $ do
     content
-    (img_ [src_ "https://www.clever-cloud.com/images/brand-assets/svg/partner-rect-proudly-red.svg"])
+    (img_ [src_ "https://www.clever-cloud.com/images/brand-assets/svg/partner-rect-proudly-blue.svg"])
 
 
 notme :: Text -> Text -> Html ()
