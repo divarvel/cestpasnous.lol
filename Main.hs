@@ -22,6 +22,8 @@ main = do
       html $ renderText form
     get "/style.css" $ do
       file "style.css"
+    get "/logo.png" $ do
+      file "logo.png"
     post "/" $ do
       a <- param "a"
       b <- param "b"
@@ -49,7 +51,7 @@ layout content = doctypehtml_ $ do
     link_ [type_ "text/css", rel_ "stylesheet", href_ "/style.css"]
   body_ $ do
     content
-    (img_ [src_ "https://www.clever-cloud.com/images/brand-assets/svg/partner-rect-proudly-red.svg"])
+    (img_ [src_ "/logo.png"])
 
 
 notme :: Text -> Text -> Html ()
