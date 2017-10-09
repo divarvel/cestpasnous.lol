@@ -66,15 +66,11 @@ reserved kw = layout $ do
     b_ $ toHtml kw <> br_ []
     "est réservé aux utilisateurs premium. Merci de contacter le support"
 
-inputStyle :: Text
-inputStyle =
-  "font-size: 5em;\n\
-  \width: 90%;\n\
-  \text-align: center;"
+
 
 form :: Html ()
 form = layout $ do
   form_ [action_ "/", method_ "post"] $ do
-    input_ [type_ "text", name_ "a", style_ inputStyle] <> br_ []
-    input_ [type_ "text", name_ "b", style_ inputStyle] <> br_ []
-    button_ [type_ "submit", style_ inputStyle] "Me dédouaner"
+    input_ [type_ "text", name_ "a", placeholder_ "@clementd"] <> br_ []
+    input_ [type_ "text", name_ "b", placeholder_ "ce site inutile"] <> br_ []
+    button_ [type_ "submit"] "Me dédouaner"

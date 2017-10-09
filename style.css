@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
   height: 100vh;
@@ -23,4 +27,15 @@ h1 {
 img {
   align-self: flex-end;
   height: 100px;
+}
+
+form {
+  margin: auto;
+}
+
+form input, form button {
+  display: inline-block;
+  font-size: 5em;
+  text-align: center;
+  width: 100%;
 }
