@@ -24,11 +24,6 @@ h1 {
   flex: 1;
 }
 
-img {
-  align-self: flex-end;
-  height: 100px;
-}
-
 form {
   margin: auto;
 }

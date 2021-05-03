@@ -51,8 +51,6 @@ layout content = doctypehtml_ $ do
     link_ [type_ "text/css", rel_ "stylesheet", href_ "/style.css"]
   body_ $ do
     content
-    (img_ [src_ "/logo.png"])
-
 
 notme :: Text -> Text -> Html ()
 notme a b = layout $ do
