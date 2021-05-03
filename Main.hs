@@ -24,7 +24,12 @@ main = do
     post "/" $ do
       a <- param "a"
       b <- param "b"
-      redirect . decodeUtf8 . toLazyByteString $ encodePathSegments [a, b]
+      let redir =
+            case (a,b) of
+              ("", _) -> "/"
+              (_, "") -> "/"
+              _ -> decodeUtf8 . toLazyByteString $ encodePathSegments [a, b]
+      redirect redir
     get "/:a/:b" $ do
       a <- param "a"
       b <- param "b"
@@ -65,6 +70,6 @@ reserved kw = layout $
 form :: Html ()
 form = layout $
   form_ [action_ "/", method_ "post"] $ do
-    input_ [type_ "text", name_ "a", placeholder_ "@clementd"] <> br_ []
-    input_ [type_ "text", name_ "b", placeholder_ "ce site inutile"] <> br_ []
+    input_ [type_ "text", name_ "a", placeholder_ "@clementd", required_ ""] <> br_ []
+    input_ [type_ "text", name_ "b", placeholder_ "ce site inutile", required_ ""] <> br_ []
     button_ [type_ "submit"] "Me dédouaner"
