@@ -10,7 +10,7 @@ body {
   padding: 0;
   flex-direction: column;
   flex-wrap: wrap;
-  align-content: flex-end;
+  align-items: center;
 }
 
 h1 {
